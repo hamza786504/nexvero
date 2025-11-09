@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexvero Countdown Timer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white font-sans">
+
+  <!-- Brand Name -->
+  <h1 class="text-4xl md:text-5xl font-bold mb-8 text-center tracking-wide">
+    🚀 Nexvero Launch Countdown
+  </h1>
+
+  <!-- Countdown Timer -->
+  <div id="countdown" class="flex space-x-4 md:space-x-8 text-center">
+    <div class="flex flex-col items-center">
+      <span id="days" class="text-5xl md:text-7xl font-bold">0</span>
+      <span class="uppercase text-sm md:text-base text-gray-400">Days</span>
+    </div>
+    <div class="flex flex-col items-center">
+      <span id="hours" class="text-5xl md:text-7xl font-bold">0</span>
+      <span class="uppercase text-sm md:text-base text-gray-400">Hours</span>
+    </div>
+    <div class="flex flex-col items-center">
+      <span id="minutes" class="text-5xl md:text-7xl font-bold">0</span>
+      <span class="uppercase text-sm md:text-base text-gray-400">Minutes</span>
+    </div>
+    <div class="flex flex-col items-center">
+      <span id="seconds" class="text-5xl md:text-7xl font-bold">0</span>
+      <span class="uppercase text-sm md:text-base text-gray-400">Seconds</span>
+    </div>
+  </div>
+
+  <!-- Message after countdown -->
+  <div id="expired-message" class="hidden mt-10 text-2xl font-semibold text-yellow-400">
+    🎉 Nexvero Event Has Begun!
+  </div>
+
+  <script>
+    // Set a fixed event date 8 days from a start date
+    // Example: you can change this date if the campaign starts on a fixed date
+    const startDate = new Date("2025-11-09T00:00:00"); // set your start date
+    const eventDate = new Date(startDate.getTime() + 8 * 24 * 60 * 60 * 1000); // 8 days after start
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        document.getElementById("countdown").classList.add("hidden");
+        document.getElementById("expired-message").classList.remove("hidden");
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+    }
+
+    // Update countdown immediately
+    updateCountdown();
+
+    // Update every second
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
